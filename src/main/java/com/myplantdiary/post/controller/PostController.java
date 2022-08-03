@@ -3,7 +3,7 @@ package com.myplantdiary.post.controller;
 import com.myplantdiary.post.domain.entity.Post;
 import com.myplantdiary.post.service.PostService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class PostController {
         return new PostResponseDto(post.getPostDate(), post.getImgUrl(), post.getText());
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
     static class PostResponseDto{
         private LocalDate postDate;
@@ -49,20 +49,20 @@ public class PostController {
         private String text;
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
     static class Result<T>{
         private T data;
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
     static class PostsResponseDto{
         private Long postId;
         private String imgUrl;
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
     static class PostRequestDto implements Serializable {
         private String uid;

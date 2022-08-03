@@ -1,4 +1,4 @@
-package com.myplantdiary.Grow.domain.entity;
+package com.myplantdiary.grow.domain.entity;
 
 import com.myplantdiary.user.domain.entity.User;
 import lombok.Data;
@@ -14,14 +14,16 @@ public class Grow {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_idx")
+    @JoinColumn(name = "user_id")
     private User user;
 
     private int postCount;
 
+    @Enumerated(value = EnumType.STRING)
     private GrowStatus growStatus;
 
     private String name;
 
+    @Enumerated(value = EnumType.STRING)
     private GrowLevel growLevel;
 }

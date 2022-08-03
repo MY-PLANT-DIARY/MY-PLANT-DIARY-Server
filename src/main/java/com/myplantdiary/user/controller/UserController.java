@@ -3,7 +3,7 @@ package com.myplantdiary.user.controller;
 import com.myplantdiary.user.domain.entity.UserMbti;
 import com.myplantdiary.user.service.UserServie;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ public class UserController {
         return ResponseEntity.ok().body("로그인 성공");
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
     static class UserDto{
         private String uid;
@@ -35,7 +35,7 @@ public class UserController {
         private UserMbti userMbti;
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
     static class JoinUserResponse{
         private String uid;
