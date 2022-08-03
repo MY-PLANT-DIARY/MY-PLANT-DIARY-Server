@@ -1,11 +1,11 @@
 package com.myplantdiary.post.domain.entity;
 
-import com.myplantdiary.Grow.domain.entity.Grow;
+import com.myplantdiary.grow.domain.entity.Grow;
 import com.myplantdiary.user.domain.entity.User;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -16,16 +16,37 @@ public class Post {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_idx")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "grow_id")
     private Grow grow;
 
-    private LocalDateTime postDate;
+    private LocalDate postDate;
 
     private String imgUrl;
 
     private String text;
+
+    //연관 관계 메서드
+    public void setUser(User user){
+        this.user = user;
+        user.getPosts().add(this);
+    }
+
+    //글 작성할 때마다 grow의 growcount 1식증가
+    public void addPostCount(){
+
+    }
+
+    //생성 메서드
+    public static Post createPost(User user, String text, String imgName){
+        Post post = new Post();
+        post.setUser(user);
+        post.setText(text);
+        post.setPostDate(LocalDate.now());
+        post.setImgUrl("C:\\Users\\user\\Documents\\GitHub\\myplantdiary\\files\\"+imgName);
+        return post;
+    }
 }
