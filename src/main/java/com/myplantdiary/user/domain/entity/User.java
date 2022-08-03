@@ -1,6 +1,6 @@
 package com.myplantdiary.user.domain.entity;
 
-import com.myplantdiary.Grow.domain.entity.Grow;
+import com.myplantdiary.grow.domain.entity.Grow;
 import com.myplantdiary.post.domain.entity.Post;
 import lombok.Data;
 
@@ -14,11 +14,11 @@ import java.util.List;
 public class User {
 
     @Id @GeneratedValue
-    @Column(name = "user_idx")
-    private Long idx;
+    @Column(name = "user_id")
+    private Long id;
 
     @NotEmpty
-    private String id;
+    private String uid;
 
     @NotEmpty
     private String pw;
@@ -26,6 +26,7 @@ public class User {
     @NotEmpty
     private String name;
 
+    @Enumerated(value = EnumType.STRING)
     private UserMbti mbti;
 
     @OneToMany(mappedBy = "user")
