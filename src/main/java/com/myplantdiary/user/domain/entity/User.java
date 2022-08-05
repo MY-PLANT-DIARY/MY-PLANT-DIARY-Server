@@ -5,7 +5,7 @@ import com.myplantdiary.post.domain.entity.Post;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,17 +13,17 @@ import java.util.List;
 @Data
 public class User {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")
     private Long id;
 
-    @NotEmpty
+    @NotNull
     private String uid;
 
-    @NotEmpty
+    @NotNull
     private String pw;
 
-    @NotEmpty
+    @NotNull
     private String name;
 
     @Enumerated(value = EnumType.STRING)
