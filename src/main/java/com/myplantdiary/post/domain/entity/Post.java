@@ -46,7 +46,7 @@ public class Post {
         post.setUser(user);
         post.setText(text);
         post.setPostDate(LocalDate.now());
-        post.setImgUrl("C:\\Users\\user\\Documents\\GitHub\\myplantdiary\\files\\"+imgName);
+        post.setImgUrl(imgName);
         return post;
     }
 }
