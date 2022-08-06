@@ -4,6 +4,8 @@ import com.myplantdiary.global.http.DefaultRes;
 import com.myplantdiary.global.http.ResponseMessage;
 import com.myplantdiary.global.http.StatusCode;
 import com.myplantdiary.user.domain.entity.UserMbti;
+import com.myplantdiary.user.dto.JoinUserResponse;
+import com.myplantdiary.user.dto.UserDto;
 import com.myplantdiary.user.service.UserServie;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +22,7 @@ public class UserController {
 
     @PostMapping("/join")
     public ResponseEntity userJoin(@RequestBody UserDto userRequest){
-        String uid = userServie.join(userRequest.getUid(), userRequest.getPw(), userRequest.getName(), userRequest.getUserMbti());
+        String uid = userServie.join(userRequest);
         JoinUserResponse joinUserResponse = new JoinUserResponse(uid);
         return new ResponseEntity<>(DefaultRes.res(StatusCode.OK, ResponseMessage.CREATED_USER, joinUserResponse), HttpStatus.OK);
     }
@@ -29,20 +31,5 @@ public class UserController {
     public ResponseEntity userLogin(@PathVariable("uid")String uid,@PathVariable("pw")String pw){
         userServie.login(uid,pw);
         return new ResponseEntity<>(DefaultRes.res(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS), HttpStatus.OK);
-    }
-
-    @Getter
-    @AllArgsConstructor
-    static class UserDto{
-        private String uid;
-        private String pw;
-        private String name;
-        private UserMbti userMbti;
-    }
-
-    @Getter
-    @AllArgsConstructor
-    static class JoinUserResponse{
-        private String uid;
     }
 }
