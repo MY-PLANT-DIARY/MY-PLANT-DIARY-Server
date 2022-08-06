@@ -2,7 +2,8 @@ package com.myplantdiary.user.domain.entity;
 
 import com.myplantdiary.grow.domain.entity.Grow;
 import com.myplantdiary.post.domain.entity.Post;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@NoArgsConstructor
+@Getter
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -34,4 +36,11 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
+
+    public User(String uid, String pw, String name, UserMbti mbti) {
+        this.uid = uid;
+        this.pw = pw;
+        this.name = name;
+        this.mbti = mbti;
+    }
 }
