@@ -2,6 +2,7 @@ package com.myplantdiary.post.service;
 
 import com.myplantdiary.post.domain.entity.Post;
 import com.myplantdiary.post.domain.repository.PostRepository;
+import com.myplantdiary.post.dto.PostRequestDto;
 import com.myplantdiary.user.domain.entity.User;
 import com.myplantdiary.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,21 +25,21 @@ public class PostService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void post(String uid, String text, MultipartFile file){
+    public void post(PostRequestDto postRequestDto){
 
-        User user = userRepository.findByUid(uid);
+        User user = userRepository.findByUid(postRequestDto.getUid());
 
-        if( !file.isEmpty() ) {
-            log.debug("file org name = {}", file.getOriginalFilename());
-            log.debug("file content type = {}", file.getContentType());
+        if( !postRequestDto.getFile().isEmpty() ) {
+            log.debug("file org name = {}", postRequestDto.getFile().getOriginalFilename());
+            log.debug("file content type = {}", postRequestDto.getFile().getContentType());
             try {
-                file.transferTo(new File(file.getOriginalFilename()));
+                postRequestDto.getFile().transferTo(new File(postRequestDto.getFile().getOriginalFilename()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        Post post = Post.createPost(user, text, file.getOriginalFilename());
+        Post post = Post.createPost(user, postRequestDto.getText(), postRequestDto.getFile().getOriginalFilename());
         postRepository.save(post);
     }
 
