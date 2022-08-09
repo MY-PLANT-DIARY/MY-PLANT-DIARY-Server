@@ -1,5 +1,6 @@
 package com.myplantdiary.post.service;
 
+import com.myplantdiary.global.exception.PostException;
 import com.myplantdiary.post.domain.entity.Post;
 import com.myplantdiary.post.domain.repository.PostRepository;
 import com.myplantdiary.post.dto.PostRequestDto;
@@ -9,10 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -27,7 +28,7 @@ public class PostService {
     @Transactional
     public void post(PostRequestDto postRequestDto){
 
-        User user = userRepository.findByUid(postRequestDto.getUid());
+        User user = checkUser(postRequestDto.getUserId());
 
         if( !postRequestDto.getFile().isEmpty() ) {
             log.debug("file org name = {}", postRequestDto.getFile().getOriginalFilename());
@@ -43,11 +44,25 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public List<Post> findPosts() {
-        return postRepository.findAll();
+    public User checkUser(Long userId){
+        return userRepository.findById(userId).orElseThrow(() -> {
+            throw new PostException("회원이 존재하지 않음");
+        });
+    }
+
+    public List<Post> findPosts(Long userId) {
+        checkUser(userId);
+        return postRepository.findAllByUserId(userId);
     }
 
     public Post findPost(Long id) {
+        checkPost(id);
         return postRepository.findById(id).get();
+    }
+
+    public void checkPost(Long id){
+        postRepository.findById(id).orElseThrow(() -> {
+            throw new PostException("게시물이 존재하지 않음");
+        });
     }
 }
