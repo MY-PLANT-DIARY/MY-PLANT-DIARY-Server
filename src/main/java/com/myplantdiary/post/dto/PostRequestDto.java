@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 public class PostRequestDto implements Serializable {
-    private String uid;
+    private Long userId;
     private String text;
     private MultipartFile file;
 }
