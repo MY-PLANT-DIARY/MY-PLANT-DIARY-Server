@@ -1,4 +1,4 @@
-package com.myplantdiary.grow.domain.entity;
+package com.myplantdiary.plant.domain.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

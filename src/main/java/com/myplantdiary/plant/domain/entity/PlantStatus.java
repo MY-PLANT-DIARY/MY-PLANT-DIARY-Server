@@ -1,5 +1,5 @@
-package com.myplantdiary.grow.domain.entity;
+package com.myplantdiary.plant.domain.entity;
 
-public enum GrowStatus {
+public enum PlantStatus {
     USING, UNUSING
 }

@@ -1,5 +1,5 @@
-package com.myplantdiary.grow.domain.entity;
+package com.myplantdiary.plant.domain.entity;
 
-public enum GrowLevel {
+public enum PlantLevel {
     LEVEL1 , LEVEL2, LEVEL3
 }
