@@ -2,6 +2,7 @@ package com.myplantdiary.user.domain.entity;
 
 import com.myplantdiary.grow.domain.entity.Grow;
 import com.myplantdiary.post.domain.entity.Post;
+import com.myplantdiary.user.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -37,10 +38,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
 
-    public User(String uid, String pw, String name, UserMbti mbti) {
-        this.uid = uid;
-        this.pw = pw;
-        this.name = name;
-        this.mbti = mbti;
+    public User(UserDto userDto) {
+        this.uid = userDto.getUid();
+        this.pw = userDto.getPw();
+        this.name = userDto.getName();
+        this.mbti = userDto.getUserMbti();
     }
 }
