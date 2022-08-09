@@ -1,4 +1,4 @@
-package com.myplantdiary.Grow.domain.entity;
+package com.myplantdiary.grow.domain.entity;
 
 import com.myplantdiary.user.domain.entity.User;
 import lombok.Data;
