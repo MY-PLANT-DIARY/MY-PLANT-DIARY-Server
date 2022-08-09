@@ -1,4 +1,4 @@
-package com.myplantdiary.grow.domain.entity;
+package com.myplantdiary.plant.domain.entity;
 
 import com.myplantdiary.user.domain.entity.User;
 import lombok.Data;
@@ -8,10 +8,10 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
-public class Grow {
+public class Plant {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "grow_id")
+    @Column(name = "plant_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,13 +23,13 @@ public class Grow {
     private int dayCount;
 
     @Enumerated(value = EnumType.STRING)
-    private GrowStatus growStatus;
+    private PlantStatus plantStatus;
 
     @NotNull
     private String name;
 
     @Enumerated(value = EnumType.STRING)
-    private GrowLevel growLevel;
+    private PlantLevel plantLevel;
 
     @Enumerated(value = EnumType.STRING)
     private PlantType plantType;
@@ -37,19 +37,19 @@ public class Grow {
     //연관 관계 메서드
     public void setUser(User user){
         this.user = user;
-        user.getGrows().add(this);
+        user.getPlants().add(this);
     }
 
     //생성 메서드
-    public static Grow createGrow(User user, String name, PlantType plantType){
-        Grow grow = new Grow();
-        grow.setUser(user);
-        grow.setPostCount(0);
-        grow.setDayCount(plantType.getCount());
-        grow.setGrowStatus(GrowStatus.USING);
-        grow.setName(name);
-        grow.setGrowLevel(GrowLevel.LEVEL1);
-        grow.setPlantType(plantType);
-        return grow;
+    public static Plant createPlant(User user, String name, PlantType plantType){
+        Plant plant = new Plant();
+        plant.setUser(user);
+        plant.setPostCount(0);
+        plant.setDayCount(plantType.getCount());
+        plant.setPlantStatus(PlantStatus.USING);
+        plant.setName(name);
+        plant.setPlantLevel(PlantLevel.LEVEL1);
+        plant.setPlantType(plantType);
+        return plant;
     }
 }
