@@ -1,8 +1,10 @@
 package com.myplantdiary.global.Handler;
 
+import com.myplantdiary.global.exception.PlantException;
 import com.myplantdiary.global.exception.PostException;
 import com.myplantdiary.global.exception.UserException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,8 +21,18 @@ public class ExControllerAdvice {
         return new ErrorResult("400", HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
+    @ExceptionHandler(PlantException.class)
+    public ErrorResult handlePlantException(Exception e){
+        return new ErrorResult("400", HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ErrorResult handleException(Exception e){
         return new ErrorResult("500", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ErrorResult handleHttpException(Exception e) {
+        return new ErrorResult("400", HttpStatus.BAD_REQUEST, e.getMessage());
     }
 }
