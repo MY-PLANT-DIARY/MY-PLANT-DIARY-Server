@@ -34,6 +34,9 @@ public class Plant {
     @Enumerated(value = EnumType.STRING)
     private PlantType plantType;
 
+    @Embedded
+    private Address address;
+
     //연관 관계 메서드
     public void setUser(User user){
         this.user = user;
