@@ -53,13 +53,13 @@ public class PostService {
 
     public User checkUser(Long userId){
         return userRepository.findById(userId).orElseThrow(() -> {
-            throw new UserException("회원이 존재하지 않음");
+            throw new UserException("회원이 존재하지 않습니다.");
         });
     }
 
     public Plant checkPlant(Long userId){
         return Optional.ofNullable(plantRepository.findByUserId(userId)).orElseThrow(() -> {
-            throw new PlantException("식물이 존재하지 않음");
+            throw new PlantException("식물이 존재하지 않습니다.");
         });
     }
 
@@ -75,7 +75,7 @@ public class PostService {
 
     public void checkPost(Long id){
         postRepository.findById(id).orElseThrow(() -> {
-            throw new PostException("게시물이 존재하지 않음");
+            throw new PostException("게시물이 존재하지 않습니다.");
         });
     }
 }

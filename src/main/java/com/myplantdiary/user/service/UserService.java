@@ -30,7 +30,7 @@ public class UserService {
     //uid 중복 확인
     public void overlapUid(String uid){
         Optional.ofNullable(userRepository.findByUid(uid)).ifPresent(user -> {
-            throw new UserException("중복된 id 입니다");
+            throw new UserException("이미 사용중인 id 입니다.");
         });
     }
 
@@ -41,15 +41,15 @@ public class UserService {
 
     public void checkUid(String uid){
         Optional.ofNullable(userRepository.findByUid(uid)).orElseThrow(() -> {
-            throw new UserException("회원 id가 존재하지 않음");
+            throw new UserException("회원 id가 존재하지 않습니다.");
         });
     }
 
     public void checkPw(String uid, String pw){
         Optional.ofNullable(userRepository.findByPw(pw)).ifPresentOrElse(user -> {
             if(user.getPw()!=userRepository.findByUid(uid).getPw()){
-                throw new UserException("회원 pw가 불일치합니다");
+                throw new UserException("회원 pw가 불일치합니다.");
             }
-        },()->{ throw new UserException("회원 pw가 불일치합니다");});
+        },()->{ throw new UserException("회원 pw가 불일치합니다.");});
     }
 }
