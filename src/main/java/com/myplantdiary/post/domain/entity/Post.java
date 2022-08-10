@@ -1,6 +1,8 @@
 package com.myplantdiary.post.domain.entity;
 
 import com.myplantdiary.plant.domain.entity.Plant;
+import com.myplantdiary.plant.domain.entity.PlantLevel;
+import com.myplantdiary.plant.domain.entity.PlantStatus;
 import com.myplantdiary.user.domain.entity.User;
 import lombok.Data;
 
@@ -27,6 +29,7 @@ public class Post {
 
     private String imgUrl;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String text;
 
     //연관 관계 메서드
@@ -43,6 +46,17 @@ public class Post {
     public void addPlantPostCount(){
         int increaseCount = this.plant.getPostCount() + 1;
         this.plant.setPostCount(increaseCount);
+        checkPostCount(increaseCount);
+    }
+
+    public void checkPostCount(int postCount){
+        if(postCount == 10){
+            this.plant.setPlantLevel(PlantLevel.LEVEL2);
+        } else if (postCount == 20) {
+            this.plant.setPlantLevel(PlantLevel.LEVEL3);
+        } else if (postCount == 30) {
+            this.plant.setPlantStatus(PlantStatus.UNUSING);
+        }
     }
 
     //생성 메서드
