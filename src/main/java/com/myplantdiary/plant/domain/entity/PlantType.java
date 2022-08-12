@@ -9,7 +9,7 @@ public enum PlantType {
     lavender("라벤더",3),
     monstera("몬스테라",4),
     eucalyptus("유칼립투스",5),
-    Cactus("선인장",7);
+    cactus("선인장",7);
 
     private final String typeName;
     private final int count;
