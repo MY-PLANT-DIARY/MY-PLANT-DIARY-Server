@@ -55,4 +55,8 @@ public class Plant {
         plant.setPlantType(plantType);
         return plant;
     }
+
+    public void minusDay(){
+        postCount--;
+    }
 }

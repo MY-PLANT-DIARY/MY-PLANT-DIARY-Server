@@ -78,4 +78,10 @@ public class PlantService {
             throw new PlantException("이 식물은 사용되고 있습니다.");
         }
     }
+
+    public PlantReadResponseDto minusDayCount(Long plantId) {
+        Plant plant = checkPlant(plantId);
+        plant.minusDay();
+        return new PlantReadResponseDto(plant);
+    }
 }
