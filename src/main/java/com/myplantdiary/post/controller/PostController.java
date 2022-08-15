@@ -30,7 +30,7 @@ public class PostController {
     public ResponseEntity posts(@PathVariable("userId")Long userId){
         List<Post> posts = postService.findPosts(userId);
         List<PostResponseDto> collect = posts.stream()
-                .map(post -> new PostResponseDto(post.getPlant().getPostCount(),post.getPostDate(), post.getImgUrl(), post.getText()))
+                .map(post -> new PostResponseDto(post.getId(), post.getPlant().getPostCount(),post.getPostDate(), post.getImgUrl(), post.getText()))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(DefaultRes.res(StatusCode.OK, ResponseMessage.READ_POSTS,collect), HttpStatus.OK);
     }
@@ -38,7 +38,7 @@ public class PostController {
     @GetMapping("/post/{postId}")
     public ResponseEntity postReadOne(@PathVariable("postId")Long id) {
         Post post = postService.findPost(id);
-        PostResponseDto postResponseDto = new PostResponseDto(post.getPlant().getPostCount(), post.getPostDate(), post.getImgUrl(), post.getText());
+        PostResponseDto postResponseDto = new PostResponseDto(post.getId(), post.getPlant().getPostCount(), post.getPostDate(), post.getImgUrl(), post.getText());
         return new ResponseEntity<>(DefaultRes.res(StatusCode.OK, ResponseMessage.READ_POST, postResponseDto), HttpStatus.OK);
     }
 }

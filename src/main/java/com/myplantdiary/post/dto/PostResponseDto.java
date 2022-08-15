@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 public class PostResponseDto {
+    private Long postId;
     private int postCount;
     private LocalDate postDate;
     private String imgUrl;
