@@ -1,6 +1,8 @@
 package com.myplantdiary.post.domain.entity;
 
-import com.myplantdiary.grow.domain.entity.Grow;
+import com.myplantdiary.plant.domain.entity.Plant;
+import com.myplantdiary.plant.domain.entity.PlantLevel;
+import com.myplantdiary.plant.domain.entity.PlantStatus;
 import com.myplantdiary.user.domain.entity.User;
 import lombok.Data;
 
@@ -20,13 +22,14 @@ public class Post {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "grow_id")
-    private Grow grow;
+    @JoinColumn(name = "plant_id")
+    private Plant plant;
 
     private LocalDate postDate;
 
     private String imgUrl;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String text;
 
     //연관 관계 메서드
@@ -35,18 +38,36 @@ public class Post {
         user.getPosts().add(this);
     }
 
-    //글 작성할 때마다 grow의 growcount 1식증가
-    public void addPostCount(){
+    public void setPlant(Plant plant){
+        this.plant = plant;
+    }
 
+    //글 작성할 때마다 Plant 의 postCount 1식증가
+    public void addPlantPostCount(){
+        int increaseCount = this.plant.getPostCount() + 1;
+        this.plant.setPostCount(increaseCount);
+        checkPostCount(increaseCount);
+    }
+
+    public void checkPostCount(int postCount){
+        if(postCount == 10){
+            this.plant.setPlantLevel(PlantLevel.LEVEL2);
+        } else if (postCount == 20) {
+            this.plant.setPlantLevel(PlantLevel.LEVEL3);
+        } else if (postCount == 30) {
+            this.plant.setPlantStatus(PlantStatus.UNUSING);
+        }
     }
 
     //생성 메서드
-    public static Post createPost(User user, String text, String imgName){
+    public static Post createPost(User user, Plant plant, String text, String imgName){
         Post post = new Post();
         post.setUser(user);
+        post.setPlant(plant);
         post.setText(text);
         post.setPostDate(LocalDate.now());
         post.setImgUrl(imgName);
+        post.addPlantPostCount();
         return post;
     }
 }

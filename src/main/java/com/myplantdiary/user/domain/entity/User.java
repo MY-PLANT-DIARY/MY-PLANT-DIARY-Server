@@ -1,7 +1,7 @@
 package com.myplantdiary.user.domain.entity;
 
-import com.myplantdiary.grow.domain.entity.Grow;
 import com.myplantdiary.post.domain.entity.Post;
+import com.myplantdiary.plant.domain.entity.Plant;
 import com.myplantdiary.user.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +33,7 @@ public class User {
     private UserMbti mbti;
 
     @OneToMany(mappedBy = "user")
-    private List<Grow> grows = new ArrayList<>();
+    private List<Plant> plants = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
