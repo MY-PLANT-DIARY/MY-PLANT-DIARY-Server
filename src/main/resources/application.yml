@@ -4,7 +4,6 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
       location: C:\Users\user\Documents\GitHub\MY-PLANT-DIARY-Server\src\main\resources\static
-#      location: /Users/haeyoon/Desktop/Dev/test/MY-PLANT-DIARY-Server/src/main/resources/static
   mvc:
     static-path-pattern: /static/**
   datasource:
